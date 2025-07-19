@@ -1,0 +1,65 @@
+graphql:
+  queries:
+    - name: getClient
+      filePath: src/application/graphql/resolvers/get-client.resolver.ts
+      description: Busca um cliente pelo ID.
+      input:
+        - name: id
+          type: ID!
+      output: Client
+      useCase: GetClientUseCase
+
+    - name: searchClients
+      filePath: src/application/graphql/resolvers/search-clients.resolver.ts
+      description: Busca clientes com filtros avançados.
+      input:
+        - name: filters
+          type: ClientFiltersInput
+      output: [Client]
+      useCase: SearchClientsUseCase
+
+    - name: getDashboardMetrics
+      filePath: src/application/graphql/resolvers/get-dashboard-metrics.resolver.ts
+      description: Retorna as métricas de vendas e metas para o dashboard.
+      input:
+        - name: periodo
+          type: String!
+      output: DashboardMetrics
+      useCase: GetDashboardMetricsUseCase
+
+  mutations:
+    - name: createClient
+      filePath: src/application/graphql/resolvers/create-client.resolver.ts
+      description: Cria um novo cliente.
+      input:
+        - name: input
+          type: CreateClientInput!
+      output: Client
+      useCase: CreateClientUseCase
+
+    - name: registerSale
+      filePath: src/application/graphql/resolvers/register-sale.resolver.ts
+      description: Registra uma venda associada a um cliente.
+      input:
+        - name: input
+          type: RegisterSaleInput!
+      output: Sale
+      useCase: RegisterSaleUseCase
+
+    - name: login
+      filePath: src/application/graphql/resolvers/login.resolver.ts
+      description: Realiza login e retorna um token JWT.
+      input:
+        - name: credentials
+          type: LoginInput!
+      output: AuthPayload
+      useCase: LoginUseCase
+
+    - name: syncData
+      filePath: src/application/graphql/resolvers/sync-data.resolver.ts
+      description: Sincroniza dados do cliente com o servidor.
+      input:
+        - name: input
+          type: SyncDataInput!
+      output: SyncResponse
+      useCase: SyncDataUseCase

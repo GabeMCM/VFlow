@@ -1,0 +1,152 @@
+dtos:
+
+  - name: RegisterUserDTO
+    filePath: src/application/dtos/register-user.dto.ts
+    description: >
+      Representa os dados necessários para registrar um novo usuário no sistema.
+    fields:
+      name: string
+      email: string
+      password: string
+      role: string # ADMIN | VENDEDOR
+
+  - name: UserDTO
+    filePath: src/application/dtos/user.dto.ts
+    description: >
+      Representa os dados públicos de um usuário retornados pela API.
+    fields:
+      id: string # UUID
+      name: string
+      email: string
+      role: string
+      createdAt: string # ISO 8601
+
+  - name: LoginUserDTO
+    filePath: src/application/dtos/login-user.dto.ts
+    description: >
+      Representa os dados necessários para autenticar um usuário.
+    fields:
+      email: string
+      password: string
+
+  - name: AuthTokenDTO
+    filePath: src/application/dtos/auth-token.dto.ts
+    description: >
+      Contém o token JWT retornado após login bem-sucedido.
+    fields:
+      token: string
+      expiresIn: number # segundos
+
+  - name: RegisterClientDTO
+    filePath: src/application/dtos/register-client.dto.ts
+    description: >
+      Representa os dados para registrar um novo cliente ou lead.
+    fields:
+      name: string
+      cpf: string
+      phoneNumber: string
+      email: string
+      address:
+        street: string
+        number: string
+        complement: string
+        city: string
+        state: string
+        zipCode: string
+      status: string # LEAD | CLIENT
+
+  - name: ClientDTO
+    filePath: src/application/dtos/client.dto.ts
+    description: >
+      Representa os dados públicos de um cliente retornados pela API.
+    fields:
+      id: string
+      name: string
+      cpf: string
+      phoneNumber: string
+      email: string
+      address:
+        street: string
+        number: string
+        complement: string
+        city: string
+        state: string
+        zipCode: string
+      status: string
+      createdAt: string # ISO 8601
+
+  - name: CreateSaleDTO
+    filePath: src/application/dtos/create-sale.dto.ts
+    description: >
+      Representa os dados necessários para registrar uma nova venda.
+    fields:
+      clientId: string # UUID
+      sellerId: string # UUID
+      items:
+        - name: string
+          unitPrice: number
+          quantity: number
+      discount: number # percentual ou valor fixo (opcional)
+
+  - name: SaleDTO
+    filePath: src/application/dtos/sale.dto.ts
+    description: >
+      Representa os dados completos de uma venda retornados pela API.
+    fields:
+      id: string
+      clientId: string
+      sellerId: string
+      items:
+        - name: string
+          unitPrice: number
+          quantity: number
+          totalPrice: number
+      totalValue: number
+      createdAt: string # ISO 8601
+
+  - name: UpdateSaleDTO
+    filePath: src/application/dtos/update-sale.dto.ts
+    description: >
+      Representa os dados para atualizar uma venda existente.
+    fields:
+      saleId: string # UUID
+      items:
+        - name: string
+          unitPrice: number
+          quantity: number
+      discount: number
+
+  - name: CalculateGoalDTO
+    filePath: src/application/dtos/calculate-goal.dto.ts
+    description: >
+      Representa os dados para calcular o progresso de uma meta.
+    fields:
+      userId: string # UUID
+      startDate: string # ISO 8601
+      endDate: string # ISO 8601
+
+  - name: GoalProgressDTO
+    filePath: src/application/dtos/goal-progress.dto.ts
+    description: >
+      Representa o progresso de uma meta de vendas.
+    fields:
+      targetValue: number
+      achievedValue: number
+      progress: number # percentual (0–100)
+
+  - name: SyncDataDTO
+    filePath: src/application/dtos/sync-data.dto.ts
+    description: >
+      Representa os dados necessários para iniciar o processo de sincronização.
+    fields:
+      userId: string # UUID
+      lastSyncAt: string # ISO 8601
+
+  - name: SyncResultDTO
+    filePath: src/application/dtos/sync-result.dto.ts
+    description: >
+      Representa o resultado do processo de sincronização.
+    fields:
+      success: boolean
+      conflictsResolved: number
+      syncedAt: string # ISO 8601

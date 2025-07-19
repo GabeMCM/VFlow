@@ -1,0 +1,49 @@
+types:
+  - name: Client
+    filePath: src/application/graphql/schema/types/client.schema.ts
+    fields:
+      id: ID!
+      nome: String!
+      cpf: String!
+      telefone: String
+      status: String
+      dataCadastro: String
+
+  - name: Sale
+    filePath: src/application/graphql/schema/types/sale.schema.ts
+    fields:
+      id: ID!
+      clienteId: ID!
+      produtos: [String]!
+      valorTotal: Float!
+      dataVenda: String!
+
+  - name: DashboardMetrics
+    filePath: src/application/graphql/schema/types/dashboard-metrics.schema.ts
+    fields:
+      totalVendas: Float!
+      metaLoja: Float!
+      percentualAlcanceLoja: Float!
+      consultores: [ConsultorMetric]!
+      ranking: [RankingEntry]!
+
+  - name: ConsultorMetric
+    filePath: src/application/graphql/schema/types/consultor-metric.schema.ts
+    fields:
+      nome: String!
+      totalVendas: Float!
+      metaPessoal: Float!
+      percentualAlcance: Float!
+
+  - name: RankingEntry
+    filePath: src/application/graphql/schema/types/ranking-entry.schema.ts
+    fields:
+      nome: String!
+      percentualAlcance: Float!
+
+  - name: AuthPayload
+    filePath: src/application/graphql/schema/types/auth-payload.schema.ts
+    fields:
+      token: String!
+      usuarioId: ID!
+      role: String!

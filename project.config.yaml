@@ -1,0 +1,102 @@
+project:
+  name: VFLOW
+  description: >
+    Ferramenta para vendedores de loja Vivo que organiza fluxo de atendimento,
+    cadastro, vendas, metas e sincronização entre máquinas na mesma rede.
+
+  language: TypeScript
+
+  stack:
+    frontend:
+      framework: Svelte
+      mode: PWA
+      deployment: [Vercel, Netlify]
+      localStorage: IndexedDB
+      indexedDBAdapter: Dexie.js
+    backend:
+      runtime: Node.js
+      framework: Fastify
+      API:
+        type: GraphQL
+        endpoint: /graphql
+      deployment: [Railway, VPS, Render]
+    database:
+      local: IndexedDB (via Dexie.js)
+      remote: PostgreSQL
+    sync:
+      mechanism: Dexie.js com adaptadores customizados
+    auth:
+      strategy: JWT
+      roles: [consultor, gerente]
+    devtools:
+      linting: ESLint
+    idStrategy: UUIDv4
+
+  architecture:
+    - DDD
+    - Clean Architecture
+    - Object Calisthenics
+
+  principles:
+    - SOLID
+    - KISS
+    - YAGNI
+    - DRY
+    - Object Calisthenics
+
+  patterns:
+    - Entity
+    - Value Object
+    - Use Case
+    - Repository
+    - Service
+    - GraphQL Resolver
+
+  code:
+    typed: true
+    strictMode: true
+    comments: >
+      Comentários devem detalhar o funcionamento, sem identação, acima da linha
+      específica (ex.: //[function soma(a, b)] -> espera dois valores).
+    formatting:
+      naming:
+        classes: PascalCase
+        attributes: camelCase
+        constants: snake_case
+      alignment: true
+      lineLength: 120
+
+  folders:
+    base: src/
+    structure:
+      core:
+        description: Regras de negócio e domínio
+        subfolders: [entities, value-objects, use-cases, enums, types]
+      infrastructure:
+        description: Implementações externas e banco
+        subfolders: [database, services, sync, auth]
+      application:
+        description: Camada de orquestração e interação
+        subfolders: [graphql, dtos]
+      shared:
+        description: Utilitários e tipos globais
+        subfolders: [utils, interfaces, config]
+    visual:
+      description: Front-end e client side
+      subfolders: [components, pages, stores, styles]
+
+  testing:
+    enabled: true
+    framework: vitest
+    coverageRequired: 80
+
+  generation:
+    outputPerBlock: true
+    fileStructure:
+      value-objects: src/core/value-objects/{block-name}.vo.ts
+      entities: src/core/entities/{block-name}.entity.ts
+      use-cases: src/core/use-cases/{block-name}.usecase.ts
+      dtos: src/application/dtos/{block-name}.dto.ts
+      graphql:
+        resolvers: src/application/graphql/resolvers/{block-name}.resolver.ts
+        schema: src/application/graphql/schema/{block-name}.schema.ts

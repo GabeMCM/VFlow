@@ -1,0 +1,73 @@
+repositories:
+
+  - name: UserRepository
+    filePath: src/core/repositories/user.repository.ts
+    description: >
+      Interface para persistência e consulta de usuários no sistema.
+    methods:
+      - save(user: User): Promise<void>
+      - findById(id: UUID): Promise<User | null>
+      - findByEmail(email: Email): Promise<User | null>
+      - update(user: User): Promise<void>
+      - delete(id: UUID): Promise<void>
+      - listAll(): Promise<User[]>
+
+  - name: ClientRepository
+    filePath: src/core/repositories/client.repository.ts
+    description: >
+      Interface para persistência e consulta de clientes.
+    methods:
+      - save(client: Client): Promise<void>
+      - findById(id: UUID): Promise<Client | null>
+      - findByCPF(cpf: CPF): Promise<Client | null>
+      - update(client: Client): Promise<void>
+      - delete(id: UUID): Promise<void>
+      - listAll(): Promise<Client[]>
+      - listLeads(): Promise<Client[]>
+      - filterBy(criteria: ClientFilter): Promise<Client[]>
+
+  - name: SaleRepository
+    filePath: src/core/repositories/sale.repository.ts
+    description: >
+      Interface para persistência e consulta de vendas.
+    methods:
+      - save(sale: Sale): Promise<void>
+      - findById(id: UUID): Promise<Sale | null>
+      - findByClientId(clientId: UUID): Promise<Sale[]>
+      - findBySellerId(sellerId: UUID): Promise<Sale[]>
+      - update(sale: Sale): Promise<void>
+      - delete(id: UUID): Promise<void>
+      - listByPeriod(range: DateRange): Promise<Sale[]>
+
+  - name: ProductRepository
+    filePath: src/core/repositories/product.repository.ts
+    description: >
+      Interface para persistência e consulta de produtos.
+    methods:
+      - save(product: Product): Promise<void>
+      - findById(id: UUID): Promise<Product | null>
+      - update(product: Product): Promise<void>
+      - delete(id: UUID): Promise<void>
+      - listAll(): Promise<Product[]>
+
+  - name: ServiceRepository
+    filePath: src/core/repositories/service.repository.ts
+    description: >
+      Interface para persistência e consulta de serviços.
+    methods:
+      - save(service: Service): Promise<void>
+      - findById(id: UUID): Promise<Service | null>
+      - update(service: Service): Promise<void>
+      - delete(id: UUID): Promise<void>
+      - listAll(): Promise<Service[]>
+
+  - name: GoalRepository
+    filePath: src/core/repositories/goal.repository.ts
+    description: >
+      Interface para persistência e consulta de metas de vendas.
+    methods:
+      - save(goal: Goal): Promise<void>
+      - findById(id: UUID): Promise<Goal | null>
+      - findByUserId(userId: UUID): Promise<Goal[]>
+      - update(goal: Goal): Promise<void>
+      - delete(id: UUID): Promise<void>

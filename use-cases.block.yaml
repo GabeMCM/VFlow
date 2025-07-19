@@ -1,0 +1,122 @@
+useCases:
+
+  - name: RegisterUser
+    filePath: src/core/use-cases/register-user.usecase.ts
+    description: >
+      Cria um novo usuário (admin ou vendedor) no sistema.
+    inputDTO: RegisterUserDTO
+    outputDTO: UserDTO
+    dependencies:
+      - UserRepository
+      - PasswordHasher
+    steps:
+      - Validar se o e-mail já está em uso.
+      - Criar instância de User com dados validados.
+      - Criptografar senha usando PasswordHasher.
+      - Persistir User no UserRepository.
+    constraints:
+      - Apenas usuários ADMIN podem registrar outros usuários.
+
+  - name: LoginUser
+    filePath: src/core/use-cases/login-user.usecase.ts
+    description: >
+      Autentica um usuário e gera um token JWT para sessão.
+    inputDTO: LoginUserDTO
+    outputDTO: AuthTokenDTO
+    dependencies:
+      - UserRepository
+      - PasswordHasher
+      - JWTAuthAdapter
+    steps:
+      - Buscar usuário pelo e-mail no UserRepository.
+      - Verificar senha usando PasswordHasher.
+      - Gerar token JWT usando JWTAuthAdapter.
+    constraints:
+      - Retorna erro se credenciais inválidas.
+
+  - name: RegisterClient
+    filePath: src/core/use-cases/register-client.usecase.ts
+    description: >
+      Cadastra um novo cliente ou lead no sistema.
+    inputDTO: RegisterClientDTO
+    outputDTO: ClientDTO
+    dependencies:
+      - ClientRepository
+    steps:
+      - Validar CPF único.
+      - Criar instância de Client com status LEAD ou CLIENT.
+      - Persistir Client no ClientRepository.
+
+  - name: UpdateClient
+    filePath: src/core/use-cases/update-client.usecase.ts
+    description: >
+      Atualiza os dados de um cliente existente.
+    inputDTO: UpdateClientDTO
+    outputDTO: ClientDTO
+    dependencies:
+      - ClientRepository
+    steps:
+      - Buscar cliente pelo ID.
+      - Aplicar alterações permitidas.
+      - Persistir atualização no ClientRepository.
+
+  - name: CreateSale
+    filePath: src/core/use-cases/create-sale.usecase.ts
+    description: >
+      Registra uma nova venda associando cliente, vendedor e itens vendidos.
+    inputDTO: CreateSaleDTO
+    outputDTO: SaleDTO
+    dependencies:
+      - SaleRepository
+      - ProductRepository
+      - ServiceRepository
+      - ClientRepository
+    steps:
+      - Validar disponibilidade de produtos/serviços.
+      - Criar instância de Sale com itens.
+      - Persistir Sale no SaleRepository.
+
+  - name: UpdateSale
+    filePath: src/core/use-cases/update-sale.usecase.ts
+    description: >
+      Permite que um ADMIN edite uma venda já registrada.
+    inputDTO: UpdateSaleDTO
+    outputDTO: SaleDTO
+    dependencies:
+      - SaleRepository
+    steps:
+      - Validar permissões do usuário.
+      - Aplicar alterações.
+      - Persistir no SaleRepository.
+
+  - name: CalculateGoal
+    filePath: src/core/use-cases/calculate-goal.usecase.ts
+    description: >
+      Calcula o progresso de uma meta de vendas para um usuário no período definido.
+    inputDTO: CalculateGoalDTO
+    outputDTO: GoalProgressDTO
+    dependencies:
+      - GoalRepository
+      - SaleRepository
+    steps:
+      - Buscar todas as vendas do usuário no período.
+      - Somar valores e comparar com targetValue.
+      - Retornar progresso como Percentage.
+
+  - name: SyncData
+    filePath: src/core/use-cases/sync-data.usecase.ts
+    description: >
+      Orquestra a sincronização peer-to-peer e backup no Google Drive.
+    inputDTO: SyncDataDTO
+    outputDTO: SyncResultDTO
+    dependencies:
+      - PeerSyncAdapter
+      - DriveBackupAdapter
+      - ConflictResolver
+    steps:
+      - Detectar alterações locais e remotas.
+      - Aplicar regras de resolução de conflitos.
+      - Executar sincronização entre máquinas.
+      - Fazer backup para o Google Drive.
+    constraints:
+      - Sincronização só ocorre se houver conexão de rede.

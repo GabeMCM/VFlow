@@ -1,0 +1,58 @@
+resolvers:
+  queries:
+    - name: GetClientResolver
+      filePath: src/application/graphql/resolvers/get-client.resolver.ts
+      description: >
+        Resolver responsável por buscar um cliente pelo ID.
+      useCase: GetClientUseCase
+      inputDto: GetClientDTO
+      outputDto: ClientResponseDTO
+
+    - name: SearchClientsResolver
+      filePath: src/application/graphql/resolvers/search-clients.resolver.ts
+      description: >
+        Resolver responsável por buscar clientes aplicando filtros avançados.
+      useCase: SearchClientsUseCase
+      inputDto: ClientFiltersDTO
+      outputDto: [ClientResponseDTO]
+
+    - name: GetDashboardMetricsResolver
+      filePath: src/application/graphql/resolvers/get-dashboard-metrics.resolver.ts
+      description: >
+        Resolver responsável por buscar métricas e dados para o dashboard de metas.
+      useCase: GetDashboardMetricsUseCase
+      inputDto: GetMetricsDTO
+      outputDto: DashboardMetricsDTO
+
+  mutations:
+    - name: CreateClientResolver
+      filePath: src/application/graphql/resolvers/create-client.resolver.ts
+      description: >
+        Resolver responsável por criar um novo cliente.
+      useCase: CreateClientUseCase
+      inputDto: CreateClientDTO
+      outputDto: ClientResponseDTO
+
+    - name: RegisterSaleResolver
+      filePath: src/application/graphql/resolvers/register-sale.resolver.ts
+      description: >
+        Resolver responsável por registrar uma nova venda.
+      useCase: RegisterSaleUseCase
+      inputDto: RegisterSaleDTO
+      outputDto: SaleResponseDTO
+
+    - name: LoginResolver
+      filePath: src/application/graphql/resolvers/login.resolver.ts
+      description: >
+        Resolver responsável por autenticar um usuário e retornar token JWT.
+      useCase: LoginUseCase
+      inputDto: LoginDTO
+      outputDto: AuthPayloadDTO
+
+    - name: SyncDataResolver
+      filePath: src/application/graphql/resolvers/sync-data.resolver.ts
+      description: >
+        Resolver responsável por sincronizar dados offline do cliente com o servidor.
+      useCase: SyncDataUseCase
+      inputDto: SyncDataDTO
+      outputDto: SyncResponseDTO

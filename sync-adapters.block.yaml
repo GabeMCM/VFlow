@@ -1,0 +1,36 @@
+syncAdapters:
+
+  - name: PeerSyncAdapter
+    filePath: src/infrastructure/sync/peer-sync.adapter.ts
+    description: >
+      Responsável pela sincronização em tempo real entre as máquinas na mesma rede local.
+      Usa protocolos P2P para compartilhar dados, detectar conflitos e garantir consistência.
+    methods:
+      - connect(): Promise<void>
+      - disconnect(): Promise<void>
+      - sendData(data: SyncData): Promise<void>
+      - receiveData(): Promise<SyncData>
+      - resolveConflicts(localData: SyncData, remoteData: SyncData): SyncData
+      - onDataReceived(callback: (data: SyncData) => void): void
+
+  - name: DriveBackupAdapter
+    filePath: src/infrastructure/sync/drive-backup.adapter.ts
+    description: >
+      Gerencia o backup automático dos dados sincronizados para o Google Drive,
+      garantindo persistência externa e recuperação em caso de falhas locais.
+    methods:
+      - uploadBackup(data: BackupData): Promise<void>
+      - downloadBackup(): Promise<BackupData>
+      - listBackups(): Promise<BackupMetadata[]>
+      - deleteBackup(id: string): Promise<void>
+      - onBackupCompleted(callback: () => void): void
+
+  - name: ConflictResolver
+    filePath: src/infrastructure/sync/conflict-resolver.ts
+    description: >
+      Componente dedicado a detectar e resolver conflitos de dados durante a sincronização,
+      aplicando regras de negócio para mesclar ou escolher a versão correta.
+    methods:
+      - detectConflicts(localData: SyncData, remoteData: SyncData): Conflict[]
+      - resolve(conflicts: Conflict[]): SyncData
+      - applyResolutionStrategy(strategy: ResolutionStrategy): void

@@ -1,0 +1,36 @@
+inputs:
+  - name: CreateClientInput
+    filePath: src/application/graphql/schema/inputs/create-client-input.schema.ts
+    fields:
+      nome: String!
+      cpf: String!
+      telefone: String
+      status: String
+
+  - name: RegisterSaleInput
+    filePath: src/application/graphql/schema/inputs/register-sale-input.schema.ts
+    fields:
+      clienteId: ID!
+      produtos: [String]!
+      valorTotal: Float!
+
+  - name: LoginInput
+    filePath: src/application/graphql/schema/inputs/login-input.schema.ts
+    fields:
+      email: String!
+      senha: String!
+
+  - name: SyncDataInput
+    filePath: src/application/graphql/schema/inputs/sync-data-input.schema.ts
+    fields:
+      clientes: [ClientInput]!
+      vendas: [SaleInput]!
+
+  - name: ClientFiltersInput
+    filePath: src/application/graphql/schema/inputs/client-filters-input.schema.ts
+    fields:
+      nome: String
+      cpf: String
+      status: String
+      dataCadastroInicio: String
+      dataCadastroFim: String

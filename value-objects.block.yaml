@@ -1,0 +1,181 @@
+valueObjects:
+
+  - name: UUID
+    filePath: src/core/value-objects/uuid.vo.ts
+    description: >
+      Representa um identificador único universal (UUIDv4). Valida o formato ao criar
+      e evita o uso de strings brutas como identificadores no domínio.
+    methods:
+      - fromString(value: string): UUID
+      - toString(): string
+      - equals(other: UUID): boolean
+    constraints:
+      - Deve estar no formato UUIDv4 válido.
+      - Imutável após criado.
+
+  - name: Name
+    filePath: src/core/value-objects/name.vo.ts
+    description: >
+      Representa um nome completo válido. Impede o uso de nomes vazios ou inválidos no domínio.
+    methods:
+      - fromString(value: string): Name
+      - toString(): string
+    constraints:
+      - Mínimo 2 palavras.
+      - Nenhum número ou caractere especial inválido.
+      - Imutável após criado.
+
+  - name: CPF
+    filePath: src/core/value-objects/cpf.vo.ts
+    description: >
+      Representa e valida um CPF (Cadastro de Pessoa Física). Garante formato correto
+      e previne duplicidade no domínio.
+    methods:
+      - fromString(value: string): CPF
+      - toString(): string
+      - equals(other: CPF): boolean
+    constraints:
+      - Deve conter 11 dígitos numéricos válidos (com validação de dígitos verificadores).
+      - Formata automaticamente para ###.###.###-##.
+      - Imutável após criado.
+
+  - name: PhoneNumber
+    filePath: src/core/value-objects/phone-number.vo.ts
+    description: >
+      Representa e valida números de telefone com DDD. Formata o número ao criar.
+    methods:
+      - fromString(value: string): PhoneNumber
+      - toString(): string
+    constraints:
+      - Deve conter código de área (DDD) válido.
+      - Deve conter entre 10 e 11 dígitos.
+      - Imutável após criado.
+
+  - name: Email
+    filePath: src/core/value-objects/email.vo.ts
+    description: >
+      Representa e valida endereços de e-mail.
+    methods:
+      - fromString(value: string): Email
+      - toString(): string
+    constraints:
+      - Deve ter formato válido conforme RFC 5322.
+      - Imutável após criado.
+
+  - name: Address
+    filePath: src/core/value-objects/address.vo.ts
+    description: >
+      Representa um endereço completo, incluindo rua, número, complemento, cidade, estado e CEP.
+    subValueObjects:
+      - street: Name
+      - number: string
+      - complement: string
+      - city: Name
+      - state: State
+      - zipCode: ZipCode
+    methods:
+      - toString(): string
+    constraints:
+      - Nenhum campo pode estar vazio (exceto complement).
+
+  - name: ZipCode
+    filePath: src/core/value-objects/zip-code.vo.ts
+    description: >
+      Representa e valida um código postal (CEP) brasileiro.
+    methods:
+      - fromString(value: string): ZipCode
+      - toString(): string
+    constraints:
+      - Deve conter 8 dígitos numéricos válidos.
+      - Formata automaticamente para #####-###.
+      - Imutável após criado.
+
+  - name: Money
+    filePath: src/core/value-objects/money.vo.ts
+    description: >
+      Representa valores monetários com precisão de centavos. Evita cálculos com floats.
+    methods:
+      - fromDecimal(value: number): Money
+      - toDecimal(): number
+      - add(other: Money): Money
+      - subtract(other: Money): Money
+    constraints:
+      - Não pode ser negativo (exceto se explicitamente permitido).
+      - Internamente representado como centavos (inteiro).
+      - Imutável após criado.
+
+  - name: Percentage
+    filePath: src/core/value-objects/percentage.vo.ts
+    description: >
+      Representa uma porcentagem entre 0% e 100%.
+    methods:
+      - fromDecimal(value: number): Percentage
+      - toDecimal(): number
+      - toString(): string
+    constraints:
+      - Valor entre 0.0 e 1.0.
+      - Imutável após criado.
+
+  - name: DateOnly
+    filePath: src/core/value-objects/date-only.vo.ts
+    description: >
+      Representa uma data sem hora (ex: datas de nascimento).
+    methods:
+      - fromISO(value: string): DateOnly
+      - toISO(): string
+    constraints:
+      - Formato ISO 8601.
+      - Imutável após criado.
+
+  - name: DateTime
+    filePath: src/core/value-objects/date-time.vo.ts
+    description: >
+      Representa uma data e hora completa com timezone.
+    methods:
+      - fromISO(value: string): DateTime
+      - toISO(): string
+    constraints:
+      - Formato ISO 8601 com timezone.
+      - Imutável após criado.
+
+  - name: DateRange
+    filePath: src/core/value-objects/date-range.vo.ts
+    description: >
+      Representa um intervalo de tempo com data inicial e final.
+    subValueObjects:
+      - startDate: DateOnly
+      - endDate: DateOnly
+    methods:
+      - durationInDays(): number
+      - overlapsWith(other: DateRange): boolean
+    constraints:
+      - endDate >= startDate
+      - Imutável após criado.
+
+  - name: Quantity
+    filePath: src/core/value-objects/quantity.vo.ts
+    description: >
+      Representa a quantidade de itens, garantindo que seja um número positivo.
+    methods:
+      - fromNumber(value: number): Quantity
+      - toNumber(): number
+    constraints:
+      - Deve ser >= 1.
+      - Imutável após criado.
+
+  - name: Role
+    filePath: src/core/value-objects/role.vo.ts
+    description: >
+      Representa o papel de um usuário no sistema (admin ou vendedor).
+    enum:
+      - ADMIN
+      - VENDEDOR
+
+  - name: SyncStatus
+    filePath: src/core/value-objects/sync-status.vo.ts
+    description: >
+      Representa o estado de sincronização atual da aplicação.
+    enum:
+      - ONLINE
+      - OFFLINE
+      - SYNCING

@@ -1,0 +1,118 @@
+entities:
+
+  - name: User
+    filePath: src/core/entities/user.entity.ts
+    description: >
+      Representa um usuário do sistema (vendedor ou administrador). 
+      Contém credenciais e permissões de acesso.
+    attributes:
+      id: UUID
+      name: Name
+      email: Email
+      password: Password
+      role: Role
+      createdAt: DateTime
+    methods:
+      - canViewClient(client: Client): boolean
+      - canEditSale(sale: Sale): boolean
+      - changePassword(newPassword: Password): void
+    constraints:
+      - Email deve ser único.
+      - Role só pode ser ADMIN ou VENDEDOR.
+
+  - name: Client
+    filePath: src/core/entities/client.entity.ts
+    description: >
+      Representa um cliente da loja, podendo estar em estado de lead (potencial cliente).
+    attributes:
+      id: UUID
+      name: Name
+      cpf: CPF
+      phoneNumber: PhoneNumber
+      email: Email
+      address: Address
+      status: ClientStatus
+      createdAt: DateTime
+    methods:
+      - isLead(): boolean
+      - convertToClient(): void
+    constraints:
+      - CPF deve ser único.
+      - status pode ser LEAD ou CLIENT.
+
+  - name: Sale
+    filePath: src/core/entities/sale.entity.ts
+    description: >
+      Representa uma venda realizada por um vendedor para um cliente.
+    attributes:
+      id: UUID
+      client: Client
+      seller: User
+      items: SaleItem[]
+      totalValue: Money
+      createdAt: DateTime
+    methods:
+      - calculateTotal(): Money
+      - addItem(item: SaleItem): void
+      - applyDiscount(discount: Discount): void
+    constraints:
+      - totalValue deve ser recalculado ao adicionar ou remover itens.
+
+  - name: SaleItem
+    filePath: src/core/entities/sale-item.entity.ts
+    description: >
+      Representa um item (produto ou serviço) dentro de uma venda.
+    attributes:
+      id: UUID
+      name: Name
+      unitPrice: Money
+      quantity: Quantity
+      totalPrice: Money
+    methods:
+      - calculateTotal(): Money
+    constraints:
+      - quantity deve ser >= 1.
+
+  - name: Product
+    filePath: src/core/entities/product.entity.ts
+    description: >
+      Representa um produto físico disponível para venda.
+    attributes:
+      id: UUID
+      name: Name
+      price: Money
+      stockQuantity: Quantity
+      createdAt: DateTime
+    methods:
+      - decreaseStock(quantity: Quantity): void
+      - increaseStock(quantity: Quantity): void
+    constraints:
+      - stockQuantity não pode ser negativo.
+
+  - name: Service
+    filePath: src/core/entities/service.entity.ts
+    description: >
+      Representa um serviço oferecido pela loja.
+    attributes:
+      id: UUID
+      name: Name
+      price: Money
+      durationInMinutes: Quantity
+      createdAt: DateTime
+    constraints:
+      - durationInMinutes deve ser >= 1.
+
+  - name: Goal
+    filePath: src/core/entities/goal.entity.ts
+    description: >
+      Representa uma meta de vendas atribuída a um vendedor em um período.
+    attributes:
+      id: UUID
+      user: User
+      period: DateRange
+      targetValue: Money
+      achievedValue: Money
+    methods:
+      - calculateProgress(): Percentage
+    constraints:
+      - achievedValue <= targetValue

@@ -1,0 +1,35 @@
+auth:
+
+  - name: JWTAuthAdapter
+    filePath: src/infrastructure/auth/jwt-auth.adapter.ts
+    description: >
+      Responsável pela geração e validação de tokens JWT para autenticação de usuários.
+      Usa chave secreta para assinatura e verifica expiração.
+    methods:
+      - generateToken(payload: AuthPayload, expiresIn: number): string
+      - validateToken(token: string): AuthPayload | null
+      - refreshToken(oldToken: string): string
+
+  - name: PasswordHasher
+    filePath: src/infrastructure/auth/password-hasher.ts
+    description: >
+      Interface para hashing e verificação de senhas.
+      Implementação recomendada: bcrypt ou argon2.
+    methods:
+      - hash(password: string): Promise<string>
+      - verify(password: string, hashed: string): Promise<boolean>
+
+  - name: AuthGuard
+    filePath: src/infrastructure/auth/auth-guard.ts
+    description: >
+      Middleware para proteger rotas, validando tokens JWT e permissões.
+    methods:
+      - canActivate(request: HttpRequest): boolean
+      - getUserFromToken(token: string): User | null
+
+  - name: RoleChecker
+    filePath: src/infrastructure/auth/role-checker.ts
+    description: >
+      Utilitário para verificar permissões baseadas em papéis (admin, vendedor).
+    methods:
+      - hasRole(user: User, role: Role): boolean
