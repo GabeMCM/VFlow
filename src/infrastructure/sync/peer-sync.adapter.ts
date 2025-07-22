@@ -1,10 +1,12 @@
-//[interface IPeerSyncAdapter] -> contrato para sincronização P2P
-import { SyncDataDTO } from '../../application/dtos/sync-data.dto';
+import { SyncData } from '../../core/types/sync-data.type';
 
-export interface IPeerSyncAdapter {
+// Responsável pela sincronização em tempo real entre as máquinas na mesma rede local.
+// Usa protocolos P2P para compartilhar dados, detectar conflitos e garantir consistência.
+export interface PeerSyncAdapter {
   connect(): Promise<void>;
   disconnect(): Promise<void>;
-  sendData(data: any): Promise<void>;
-  receiveData(): Promise<any>;
-  onDataReceived(callback: (data: any) => void): void;
+  sendData(data: SyncData): Promise<void>;
+  receiveData(): Promise<SyncData>;
+  resolveConflicts(localData: SyncData, remoteData: SyncData): SyncData;
+  onDataReceived(callback: (data: SyncData) => void): void;
 }

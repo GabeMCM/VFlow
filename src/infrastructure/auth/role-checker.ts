@@ -1,15 +1,10 @@
-//[class RoleChecker] -> utilitário para verificar permissões
-import { User } from '../../core/entities/user.entity';
-import { Role } from '../../core/enums/role.enum';
+import { User, Role } from '../../core/types/types';
 
+// Utilitário para verificar permissões baseadas em papéis (admin, vendedor).
 export class RoleChecker {
-  //[method hasRole] -> verifica se o usuário possui o papel especificado
+  // hasRole(user: User, role: Role): boolean
   public hasRole(user: User, role: Role): boolean {
-    return user.role === role;
-  }
-
-  //[method isAdmin] -> atalho para verificar se é admin
-  public isAdmin(user: User): boolean {
-    return this.hasRole(user, Role.ADMIN);
+    // TODO: implementation
+    return false;
   }
 }

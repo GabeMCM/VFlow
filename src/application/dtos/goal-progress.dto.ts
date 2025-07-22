@@ -1,6 +1,6 @@
-//[dto GoalProgressDTO] -> progresso de uma meta de vendas
+// Representa o progresso de uma meta de vendas.
 export class GoalProgressDTO {
-  targetValue!: number;
-  achievedValue!: number;
-  progress!: number; // percentual (0–100)
+  targetValue: number;
+  achievedValue: number;
+  progress: number; // percentual (0–100)
 }

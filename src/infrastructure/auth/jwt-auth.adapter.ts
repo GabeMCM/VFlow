@@ -1,11 +1,23 @@
-//[type AuthPayload] -> dados a serem incluídos no token JWT
-export type AuthPayload = {
-  userId: string;
-  role: string;
-};
+import { AuthPayload } from '../../core/types/types';
 
-//[interface IJWTAuthAdapter] -> contrato para geração e validação de tokens JWT
-export interface IJWTAuthAdapter {
-  generateToken(payload: AuthPayload, expiresIn: number): string;
-  validateToken(token: string): AuthPayload | null;
+// Responsável pela geração e validação de tokens JWT para autenticação de usuários.
+// Usa chave secreta para assinatura e verifica expiração.
+export class JWTAuthAdapter {
+  // generateToken(payload: AuthPayload, expiresIn: number): string
+  public generateToken(payload: AuthPayload, expiresIn: number): string {
+    // TODO: implementation
+    return '';
+  }
+
+  // validateToken(token: string): AuthPayload | null
+  public validateToken(token: string): AuthPayload | null {
+    // TODO: implementation
+    return null;
+  }
+
+  // refreshToken(oldToken: string): string
+  public refreshToken(oldToken: string): string {
+    // TODO: implementation
+    return '';
+  }
 }

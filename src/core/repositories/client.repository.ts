@@ -1,15 +1,10 @@
-//[interface ClientRepository] -> contrato para persistência de clientes
 import { Client } from '../entities/client.entity';
-import { CPF } from '../value-objects/cpf.vo';
 import { UUID } from '../value-objects/uuid.vo';
+import { CPF } from '../value-objects/cpf.vo';
+import { ClientFilter } from '../types/client-filter.type';
 
-//[type ClientFilter] -> critério de filtro para clientes (exemplo)
-export type ClientFilter = {
-  name?: string;
-  status?: string;
-};
-
-export interface IClientRepository {
+// Interface para persistência e consulta de clientes.
+export interface ClientRepository {
   save(client: Client): Promise<void>;
   findById(id: UUID): Promise<Client | null>;
   findByCPF(cpf: CPF): Promise<Client | null>;

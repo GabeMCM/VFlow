@@ -1,12 +1,10 @@
-//[dto UpdateSaleDTO] -> dados para atualizar uma venda
-class SaleItemUpdateDTO {
-  name!: string;
-  unitPrice!: number;
-  quantity!: number;
-}
-
+// Representa os dados para atualizar uma venda existente.
 export class UpdateSaleDTO {
-  saleId!: string; // UUID
-  items?: SaleItemUpdateDTO[];
-  discount?: number;
+  saleId: string; // UUID
+  items: {
+    name: string;
+    unitPrice: number;
+    quantity: number;
+  }[];
+  discount: number;
 }

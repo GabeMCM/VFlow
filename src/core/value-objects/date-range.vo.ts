@@ -1,32 +1,21 @@
-//[class DateRange] -> representa um intervalo de tempo
 import { DateOnly } from './date-only.vo';
 
+// Representa um intervalo de tempo com data inicial e final.
 export class DateRange {
-  public readonly startDate: DateOnly;
-  public readonly endDate: DateOnly;
+  constructor(
+    public readonly startDate: DateOnly,
+    public readonly endDate: DateOnly
+  ) {}
 
-  constructor(props: { startDate: DateOnly; endDate: DateOnly }) {
-    //[validate] -> garante que a data final não é anterior à inicial
-    if (props.endDate.toISO() < props.startDate.toISO()) {
-      throw new Error('End date cannot be earlier than start date.');
-    }
-    this.startDate = props.startDate;
-    this.endDate = props.endDate;
-  }
-
-  //[method durationInDays] -> calcula a duração do intervalo em dias
+  // durationInDays(): number
   public durationInDays(): number {
-    const start = new Date(this.startDate.toISO());
-    const end = new Date(this.endDate.toISO());
-    const diffTime = Math.abs(end.getTime() - start.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Adiciona 1 para ser inclusivo
+    // TODO: implementation
+    return 0;
   }
 
-  //[method overlapsWith] -> verifica se dois intervalos de data se sobrepõem
+  // overlapsWith(other: DateRange): boolean
   public overlapsWith(other: DateRange): boolean {
-    return (
-      this.startDate.toISO() <= other.endDate.toISO() &&
-      this.endDate.toISO() >= other.startDate.toISO()
-    );
+    // TODO: implementation
+    return false;
   }
 }

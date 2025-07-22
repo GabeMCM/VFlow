@@ -1,25 +1,20 @@
-//[class Percentage] -> representa uma porcentagem entre 0 e 100
+// Representa uma porcentagem entre 0% e 100%.
 export class Percentage {
-  private readonly value: number; // Armazena como decimal (ex: 0.5 para 50%)
+  private constructor(private readonly value: number) {}
 
-  private constructor(value: number) {
-    this.value = value;
+  // fromDecimal(value: number): Percentage
+  public static fromDecimal(value: number): Percentage {
+    // TODO: validation
+    return new Percentage(value);
   }
 
+  // toDecimal(): number
   public toDecimal(): number {
     return this.value;
   }
 
+  // toString(): string
   public toString(): string {
-    return `${(this.value * 100).toFixed(2)}%`;
-  }
-
-  //[method fromDecimal] -> cria uma instância a partir de um decimal (0 a 1)
-  public static fromDecimal(value: number): Percentage {
-    //[validate] -> garante que o valor está entre 0 e 1
-    if (value < 0 || value > 1) {
-      throw new Error('Percentage value must be between 0 and 1.');
-    }
-    return new Percentage(value);
+    return `${this.value * 100}%`;
   }
 }

@@ -1,12 +1,10 @@
-//[type Conflict] -> representa um conflito de dados
-export type Conflict = {
-  local: any;
-  remote: any;
-  type: string;
-};
+import { SyncData } from '../../core/types/sync-data.type';
+import { Conflict, ResolutionStrategy } from '../../core/types/conflict.type';
 
-//[interface IConflictResolver] -> contrato para resolução de conflitos
-export interface IConflictResolver {
-  detectConflicts(localData: any, remoteData: any): Conflict[];
-  resolve(conflicts: Conflict[]): any; // Retorna os dados resolvidos
+// Componente dedicado a detectar e resolver conflitos de dados durante a sincronização,
+// aplicando regras de negócio para mesclar ou escolher a versão correta.
+export interface ConflictResolver {
+  detectConflicts(localData: SyncData, remoteData: SyncData): Conflict[];
+  resolve(conflicts: Conflict[]): SyncData;
+  applyResolutionStrategy(strategy: ResolutionStrategy): void;
 }

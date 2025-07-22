@@ -1,0 +1,11 @@
+✅ auth.block.yaml
+✅ dtos.block.yaml
+✅ value-objects.block.yaml
+✅ entities.block.yaml
+✅ repositories.block.yaml
+✅ sync-adapters.block.yaml
+✅ use-cases.block.yaml
+✅ graphql.block.yaml
+✅ inputs.block.yaml
+✅ resolvers.block.yaml
+✅ types.block.yaml

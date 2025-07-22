@@ -1,5 +1,5 @@
-//[dto SyncDataDTO] -> dados para iniciar sincronização
+// Representa os dados necessários para iniciar o processo de sincronização.
 export class SyncDataDTO {
-  userId!: string; // UUID
-  lastSyncAt!: string; // ISO 8601
+  userId: string; // UUID
+  lastSyncAt: string; // ISO 8601
 }

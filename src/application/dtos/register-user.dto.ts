@@ -1,7 +1,7 @@
-//[dto RegisterUserDTO] -> dados para registrar um novo usuário
+// Representa os dados necessários para registrar um novo usuário no sistema.
 export class RegisterUserDTO {
-  name!: string;
-  email!: string;
-  password!: string;
-  role!: string; // ADMIN | VENDEDOR
+  name: string;
+  email: string;
+  password: string;
+  role: string; // ADMIN | VENDEDOR
 }

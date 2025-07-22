@@ -1,9 +1,9 @@
-//[interface SaleRepository] -> contrato para persistência de vendas
 import { Sale } from '../entities/sale.entity';
-import { DateRange } from '../value-objects/date-range.vo';
 import { UUID } from '../value-objects/uuid.vo';
+import { DateRange } from '../value-objects/date-range.vo';
 
-export interface ISaleRepository {
+// Interface para persistência e consulta de vendas.
+export interface SaleRepository {
   save(sale: Sale): Promise<void>;
   findById(id: UUID): Promise<Sale | null>;
   findByClientId(clientId: UUID): Promise<Sale[]>;

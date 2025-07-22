@@ -1,8 +1,8 @@
-//[interface GoalRepository] -> contrato para persistência de metas
 import { Goal } from '../entities/goal.entity';
 import { UUID } from '../value-objects/uuid.vo';
 
-export interface IGoalRepository {
+// Interface para persistência e consulta de metas de vendas.
+export interface GoalRepository {
   save(goal: Goal): Promise<void>;
   findById(id: UUID): Promise<Goal | null>;
   findByUserId(userId: UUID): Promise<Goal[]>;
